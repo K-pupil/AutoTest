@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -35,28 +36,32 @@ public class HeaderPage {
     @FindBy(xpath = "/html/body/header/div[2]/div/div/div[2]/div[2]/a[1]")
     public WebElement basketButton;
 
-
+    @Step("Put search input into search field")
     public void searchSubmit(WebDriver driver, String  searchInput) {
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         searchField.sendKeys(searchInput);
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
     }
 
+    @Step("Click on Discont System icon")
     public void discontSystem(WebDriver driver) {
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         discontSystemButton.click();
     }
 
+    @Step("Click on Payment icon")
     public void paymentClick(WebDriver driver) {
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         paymentButton.click();
     }
 
+    @Step("Click on Contacts icon")
     public void contactsClick(WebDriver driver) {
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         contactsButton.click();
     }
 
+    @Step("Click on Ukrainian language icon")
     public void ukrButtonClick(WebDriver driver) {
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         ukrButton.click();

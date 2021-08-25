@@ -13,7 +13,4 @@ public class SearchResultPage {
     @FindBy(xpath = "/html/body/div[2]/div/div/div/div/div[2]/div/main/div[4]/div[5]/a")
     public WebElement buyNowButton;
 
-
-
-
 }

@@ -1,6 +1,8 @@
 package opt24;
 
 import dataProviders.TextDataProvider;
+import io.qameta.allure.Description;
+import io.qameta.allure.Story;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -13,11 +15,12 @@ import pages.ContactsPage;
 import pages.HeaderPage;
 import pages.PaymentPage;
 
-public class HeaderVerification {
+public class HeaderVerification  extends DAO{
     private WebDriver driver;
     public SoftAssert softAssert = new SoftAssert();
     Assertion assertion = new Assertion();
 
+    @Override
     @BeforeTest
     public void startDriver() {
         System.setProperty("webdriver.chrome.driver", "src/chromedriver.exe");
@@ -27,14 +30,19 @@ public class HeaderVerification {
     }
 
     @Test(description = "Текст на странице Система скидок соответствует требованиям--discontSystemValidText")
+    @Description("Text on the System of discont page is valid")
+    @Story("discontTextVerification")
     public void discontTextVerification() {
         HeaderPage headerPage = PageFactory.initElements(driver, HeaderPage.class);
         TextDataProvider textDataProvider = PageFactory.initElements(driver, TextDataProvider.class);
         headerPage.discontSystem(driver);
         softAssert.assertEquals(headerPage.discontSystemText.getText(), textDataProvider.discontSystemValidText);
+        softAssert.assertAll();
     }
 
     @Test(description = "Заголовки на странице Оплата соответствуют требовниям--Payment titles")
+    @Description("Titles on Payment page are valid")
+    @Story("paymentTextTitleVerification")
     public void paymentTextTitleVerification() {
         HeaderPage headerPage = PageFactory.initElements(driver, HeaderPage.class);
         PaymentPage paymentPage = PageFactory.initElements(driver, PaymentPage.class);
@@ -48,6 +56,8 @@ public class HeaderVerification {
     }
 
     @Test(description = "Номера телефонов на странице Контакты соответствуют требовниям--Contact numbers")
+    @Description("Contact numbers are valid on the Contacts page")
+    @Story("contactNumbersVerification")
     public void contactNumbersVerification() {
         HeaderPage headerPage = PageFactory.initElements(driver, HeaderPage.class);
         TextDataProvider textDataProvider = PageFactory.initElements(driver, TextDataProvider.class);
@@ -61,6 +71,8 @@ public class HeaderVerification {
     }
 
     @Test(description = "Проверка текста поп-ап сообщения: Украинская версия в разработке")
+    @Description("Information message about ukrainian version of site appears")
+    @Story("ukrLangButton")
     public void ukrLangButton() {
         HeaderPage headerPage = PageFactory.initElements(driver, HeaderPage.class);
         TextDataProvider textDataProvider = PageFactory.initElements(driver, TextDataProvider.class);
@@ -68,6 +80,7 @@ public class HeaderVerification {
         assertion.assertEquals(headerPage.ukrLangMessagePopUp.getText(), textDataProvider.ukrLangMessagePopUp, "Ukr Lang message text isn't valid:");
     }
 
+    @Override
     @AfterTest
     public void shutDownDriver() {
         driver.close();
